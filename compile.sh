@@ -11,20 +11,26 @@ CURRENT_DIR=`pwd`
 DIR="/tmp/espeakosx"
 INNER_SRC_DIR="espeak-1.48.04-source/src"
 
-if [ $# -lt 1 ]
+if [ $# -lt 2 ]
 then
     echo ""
     echo "Usage:"
-    echo "  $ bash compile.sh /path/to/espeak-1.48.04-source.zip"
+    echo "  $ bash compile.sh /path/to/pa_stable_v19_20140130.tgz /path/to/espeak-1.48.04-source.zip "
     echo ""
     exit 2
 fi
 
-ESPEAK_SOURCE_ZIP=$1
+PORTAUDIO_SOURCE_ZIP=$1
+ESPEAK_SOURCE_ZIP=$2
 
+if ! [ -e "$PORTAUDIO_SOURCE_ZIP" ]
+then
+    echo "[ERRO] File $PORTAUDIO_SOURCE_ZIP not existing. Please specify the path of pa_stable_v19_20140130.tgz"
+    exit 1
+fi
 if ! [ -e "$ESPEAK_SOURCE_ZIP" ]
 then
-    echo "[ERRO] File $ESPEAK_SOURCE_ZIP not existing. Please specify the path to espeak-1.48.04-source.zip"
+    echo "[ERRO] File $ESPEAK_SOURCE_ZIP not existing. Please specify the path of espeak-1.48.04-source.zip"
     exit 1
 fi
 
@@ -38,24 +44,25 @@ echo "[INFO] Copying patch files..."
 cp *.patch $DIR
 
 # copy espeak ZIP in $DIR
+cp "$PORTAUDIO_SOURCE_ZIP" "$DIR/pa.tgz"
 cp "$ESPEAK_SOURCE_ZIP" "$DIR/ess.zip"
 
 # cd there
 cd $DIR
 
-# get portaudio source from http://www.portaudio.com/download.html :
-echo "[INFO] Downloading portaudio..."
-curl "http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz" > pa_stable_v19_20140130.tgz
-tar xzf pa_stable_v19_20140130.tgz
+## get portaudio source from http://www.portaudio.com/download.html :
+#echo "[INFO] Downloading portaudio..."
+#curl "http://www.portaudio.com/archives/pa_stable_v19_20140130.tgz" > pa.tgz
 
-# configure and compile
+# extract, configure, compile
 echo "[INFO] Compiling portaudio..."
+tar xzf pa.tgz
 cd portaudio
 ./configure && make
 
 if ! [ -e "lib/.libs/libportaudio.a"  ]
 then
-    echo "[ERRO] Error compiling portaudio, aborting."
+    echo "[ERRO] Error while compiling portaudio, aborting."
     cd $CURRENT_DIR
     exit 1
 fi
@@ -68,7 +75,6 @@ echo "[INFO] Unzipping espeak..."
 unzip ess.zip
 
 # patch source files
-echo "[INFO] Patching source files..."
 if ! [ -e "$INNER_SRC_DIR" ]
 then
     echo "[ERRO] Unable to enter directory $INNER_SRC_DIR, aborting."
@@ -76,6 +82,7 @@ then
     exit 1
 fi
 
+echo "[INFO] Patching source files..."
 cd $INNER_SRC_DIR
 patch Makefile $DIR/Makefile.patch
 patch event.cpp $DIR/event.cpp.patch
@@ -95,7 +102,7 @@ if [ -e "libespeak.so" ]
 then
     echo "[INFO] Success! The compiled espeak files are located in $DIR/$INNER_SRC_DIR"
 else
-    echo "[ERRO] Unable to find libespeak.so"
+    echo "[ERRO] Error while compiling espeak"
     cd $CURRENT_DIR
     exit 1
 fi

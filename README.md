@@ -7,6 +7,13 @@ A simple Bash script to compile [eSpeak](http://espeak.sourceforge.net/) on Mac 
 * Developer: [Alberto Pettarin](http://www.albertopettarin.it/) ([contact](http://www.albertopettarin.it/contact.html))
 * License: the MIT License (MIT), see LICENSE.md
 
+
+## Important Note
+
+**2016-01-02**: eSpeak is transitioning to [eSpeak NG](https://github.com/espeak-ng/espeak-ng),
+which should solve the compilation issues in OS X, making this project (espeakosx) obsolete.
+
+
 ## Usage
 
 1. Clone this repo:
@@ -48,4 +55,4 @@ A simple Bash script to compile [eSpeak](http://espeak.sourceforge.net/) on Mac 
 
 **espeakosx** is released under the MIT License.
 
-[![Analytics](https://ga-beacon.appspot.com/UA-52776738-1/espeakosx)](http://www.albertopettarin.it)
+

@@ -58,7 +58,8 @@ cd $DIR
 echo "[INFO] Compiling portaudio..."
 tar xzf pa.tgz
 cd portaudio
-./configure && make
+patch -i ../portaudio_configure_sdk.patch
+./configure && ma/ke
 
 if ! [ -e "lib/.libs/libportaudio.a"  ]
 then
@@ -86,7 +87,7 @@ echo "[INFO] Patching source files..."
 cd $INNER_SRC_DIR
 patch Makefile $DIR/Makefile.patch
 patch event.cpp $DIR/event.cpp.patch
-patch fifo.cpp $DIR/fifo.cpp.patch   
+patch fifo.cpp $DIR/fifo.cpp.patch
 
 # copy the static library libportaudio.a here
 cp $DIR/portaudio/lib/.libs/libportaudio.a .

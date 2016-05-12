@@ -59,7 +59,7 @@ echo "[INFO] Compiling portaudio..."
 tar xzf pa.tgz
 cd portaudio
 patch -i ../portaudio_configure_sdk.patch
-./configure && ma/ke
+./configure && make
 
 if ! [ -e "lib/.libs/libportaudio.a"  ]
 then

@@ -2,13 +2,18 @@
 
 A simple Bash script to compile [eSpeak](http://espeak.sourceforge.net/) on Mac OS X
 
-* Version: 1.0.0
-* Date: 2015-10-11
+* Version: 1.0.1
+* Date: 2016-07-06
 * Developer: [Alberto Pettarin](http://www.albertopettarin.it/) ([contact](http://www.albertopettarin.it/contact.html))
 * License: the MIT License (MIT), see LICENSE.md
 
 
-## Important Note
+## Important Notes
+
+**2016-07-06**: [Daniel Bair](https://github.com/danielbair) used the patches in this repository to create a brew formula to easily install eSpeak on OS X,
+see [issue #2](https://github.com/pettarin/espeakosx/issues/2) for details.
+
+**2016-05-12**: [Jacobo Tarragón](https://github.com/jminuscula) extended the patch to work with OS X 10.10 and 10.11.
 
 **2016-01-02**: eSpeak is transitioning to [eSpeak NG](https://github.com/espeak-ng/espeak-ng),
 which should solve the compilation issues in OS X, making this project (espeakosx) obsolete.

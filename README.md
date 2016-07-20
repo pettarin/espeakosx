@@ -2,13 +2,18 @@
 
 A simple Bash script to compile [eSpeak](http://espeak.sourceforge.net/) on Mac OS X
 
-* Version: 1.0.1
-* Date: 2016-07-06
+* Version: 1.0.2
+* Date: 2016-07-20
 * Developer: [Alberto Pettarin](http://www.albertopettarin.it/) ([contact](http://www.albertopettarin.it/contact.html))
 * License: the MIT License (MIT), see LICENSE.md
 
 
 ## Important Notes
+
+**2016-07-20**: now if you `brew install espeak` you will get eSpeak and libespeak, as patched by Daniel Bair.
+See [this merged PR on Homebrew](https://github.com/Homebrew/homebrew-core/pull/2726).
+Please note that it uses the `ASYNC` define, instead of the patches in this repository, which seem to be unstable.
+In general, a more robust `sem_timedwait()` replacement is needed.
 
 **2016-07-06**: [Daniel Bair](https://github.com/danielbair) used the patches in this repository to create a brew formula to easily install eSpeak on OS X,
 see [issue #2](https://github.com/pettarin/espeakosx/issues/2) for details.
